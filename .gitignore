@@ -1,0 +1,13 @@
+*.xlsx
+*.xls
+*.csv
+
+.env
+credentials.json
+
+__pycache__/
+*.pyc
+
+tempCodeRunnerFile.py
+tempCodeRunnerFile.python
+.vscode/

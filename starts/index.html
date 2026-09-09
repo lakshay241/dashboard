@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ZYALO | Login</title>
+
+    <link rel="stylesheet" href="van.css">
+</head>
+
+<body>
+
+    <div class="login-page">
+
+        <div class="login-card">
+
+            <div class="login-logo">
+                💼
+            </div>
+
+            <div class="login-brand">
+                ZYALO
+            </div>
+
+            <p class="login-subtitle">
+                Collection Management System
+            </p>
+
+            <div class="login-line"></div>
+
+            <form onsubmit="event.preventDefault(); login();">
+
+                <div class="input-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter username"
+                        autocomplete="username"
+                        required>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required>
+
+                </div>
+
+
+                <p
+                    id="login-message"
+                    class="login-message">
+                </p>
+
+
+                <button
+                    type="submit"
+                    class="login-button">
+
+                    Login
+                    <span>→</span>
+
+                </button>
+
+            </form>
+
+
+            <div class="login-footer">
+
+                <span class="secure-dot"></span>
+
+                Secure Collection Dashboard
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="auth.js"></script>
+
+</body>
+
+</html>

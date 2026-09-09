@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ZYALO Collection Dashboard</title>
+
+    <link rel="stylesheet" href="van.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Excel Reader -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head>
+
+<body onload="checkAuthentication()">
+
+<div class="dashboard-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">Z</div>
+
+            <div>
+                <h2>ZYALO</h2>
+                <span>Collection Dashboard</span>
+            </div>
+        </div>
+
+
+        <nav class="sidebar-menu">
+
+            <a href="#" class="menu-item active">
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#collection" class="menu-item">
+                📊
+                <span>Collection Report</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-line"></div>
+
+            <p>Smarter Collections</p>
+            <p>Better Tomorrow</p>
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <div class="menu-icon">
+                    ☰
+                </div>
+
+                <p class="small-label">
+                    ZYALO COLLECTION DASHBOARD
+                </p>
+
+                <h1>
+                    Executive Wise Collection
+                </h1>
+
+                <p class="header-description">
+                    Collection performance overview
+                </p>
+
+            </div>
+
+
+            <div class="profile-box">
+
+                <div class="profile-icon">
+                    👤
+                </div>
+
+                <div>
+                    <small>Welcome</small>
+                    <strong>ZYALO</strong>
+                </div>
+
+                <span>⌄</span>
+
+            </div>
+
+        </header>
+
+
+        <!-- DATA STATUS -->
+
+        <div id="dataStatus" class="data-status">
+            Loading Excel data...
+        </div>
+
+
+        <!-- ================= KPI CARDS ================= -->
+
+        <section class="kpi-grid">
+
+
+            <!-- CASES -->
+
+            <div class="kpi-card blue">
+
+                <div class="kpi-top">
+                    <div class="kpi-icon">
+                        📁
+                    </div>
+                </div>
+
+                <p>Total Cases</p>
+
+                <h2 id="totalCases">
+                    0
+                </h2>
+
+            </div>
+
+
+            <!-- REPAY -->
+
+            <div class="kpi-card orange">
+
+                <div class="kpi-top">
+                    <div class="kpi-icon">
+                        💰
+                    </div>
+                </div>
+
+                <p>Repay Amount</p>
+
+                <h2 id="repayAmount">
+                    ₹0
+                </h2>
+
+            </div>
+
+
+            <!-- RECEIVED -->
+
+            <div class="kpi-card green">
+
+                <div class="kpi-top">
+                    <div class="kpi-icon">
+                        📈
+                    </div>
+                </div>
+
+                <p>Received Amount</p>
+
+                <h2 id="receivedAmount">
+                    ₹0
+                </h2>
+
+            </div>
+
+
+            <!-- PENDING -->
+
+            <div class="kpi-card red">
+
+                <div class="kpi-top">
+                    <div class="kpi-icon">
+                        ⏳
+                    </div>
+                </div>
+
+                <p>Pending Amount</p>
+
+                <h2 id="pendingAmount">
+                    ₹0
+                </h2>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= COLLECTION OVERVIEW ================= -->
+
+        <section class="overview-card">
+
+            <div class="overview-heading">
+
+                <div class="overview-icon">
+                    📊
+                </div>
+
+                <div>
+                    <h2>Collection Overview</h2>
+
+                    <p>
+                        Key collection metrics at a glance
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="overview-data">
+
+
+                <div class="overview-item">
+
+                    <div class="overview-round blue-round">
+                        📄
+                    </div>
+
+                    <div>
+                        <span>Total Cases</span>
+
+                        <strong id="overviewCases">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="overview-item">
+
+                    <div class="overview-round green-round">
+                        ₹
+                    </div>
+
+                    <div>
+                        <span>Received Amount</span>
+
+                        <strong id="overviewReceived">
+                            ₹0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="overview-item">
+
+                    <div class="overview-round orange-round">
+                        💰
+                    </div>
+
+                    <div>
+                        <span>Repay Amount</span>
+
+                        <strong id="overviewRepay">
+                            ₹0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= GRAPHS ================= -->
+
+        <section class="charts-grid" id="collection">
+
+
+            <!-- EXECUTIVE COLLECTION -->
+
+            <div class="chart-card">
+
+                <div class="chart-title">
+
+                    <div>
+                        <p class="chart-label">
+                            COLLECTION
+                        </p>
+
+                        <h2>
+                            Executive Collection
+                        </h2>
+
+                        <p>
+                            Received vs Pending Amount
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="executiveCollectionChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- SANCTION VS REPAY -->
+
+            <div class="chart-card">
+
+                <div class="chart-title">
+
+                    <div>
+                        <p class="chart-label">
+                            LOAN PERFORMANCE
+                        </p>
+
+                        <h2>
+                            Sanction vs Repay
+                        </h2>
+
+                        <p>
+                            Executive-wise comparison
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="sanctionRepayChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- COLLECTION % -->
+
+            <div class="chart-card full-chart">
+
+                <div class="chart-title">
+
+                    <div>
+
+                        <p class="chart-label">
+                            PERFORMANCE
+                        </p>
+
+                        <h2>
+                            Collection Percentage
+                        </h2>
+
+                        <p>
+                            Executive-wise collection performance
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="chart-wrapper">
+
+                    <canvas id="collectionPercentageChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= TABLE ================= -->
+
+        <section class="table-panel">
+
+            <div class="table-heading">
+
+                <div>
+
+                    <p class="chart-label">
+                        COLLECTION PERFORMANCE
+                    </p>
+
+                    <h2>
+                        Executive Wise Collection
+                    </h2>
+
+                    <p>
+                        Collection performance by sales executive
+                    </p>
+
+                </div>
+
+                <span class="status-badge">
+                    ● MTD
+                </span>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Executive</th>
+
+                            <th>Cases</th>
+
+                            <th>Sanction</th>
+
+                            <th>Repay</th>
+
+                            <th>Received</th>
+
+                            <th>Pending</th>
+
+                            <th>Collection %</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="collectionBody">
+
+                        <tr>
+                            <td colspan="8" class="loading-cell">
+                                Loading Excel data...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOGOUT -->
+
+        <div class="logout-area">
+
+            <button
+                class="logout-button"
+                onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- Authentication -->
+<script src="auth.js"></script>
+
+<!-- Dashboard -->
+<script src="java.js"></script>
+
+
+</body>
+</html>
